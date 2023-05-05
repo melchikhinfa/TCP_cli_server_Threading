@@ -4,3 +4,13 @@ TCP server threading (4)/server/__pycache__/
 TCP server threading (4)/.idea/
 
 TCP server threading (4)/client/__pycache__/
+
+4. TCP-cli server threading/.idea/
+
+4. TCP-cli server threading/client/__pycache__/
+
+4. TCP-cli server threading/server/__pycache__/
+
+5. TCP-cli server with encryption/client/__pycache__/
+
+5. TCP-cli server with encryption/server/__pycache__/
