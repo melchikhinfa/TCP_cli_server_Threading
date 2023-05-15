@@ -184,7 +184,7 @@ class Client:
 
 
 def main():
-    with open('./keys.txt', 'r') as f:
+    with open('certs/keys.txt', 'r') as f:
         keys = f.read()
         p, g, a = map(int, keys.split(' '))
 
