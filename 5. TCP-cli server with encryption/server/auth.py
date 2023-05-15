@@ -17,7 +17,7 @@ class UserRegistration:
             "password NOT NULL, "
             "status, "
             "token, "
-            "token_time"
+            "token_time "
             ")"
         )
         self.conn.commit()
@@ -71,6 +71,7 @@ class UserRegistration:
             db_logger.db_log.info(f"Обновлена информация о пользователе с именем: {ip}")
             conn.commit()
             db_logger.db_log.info("Соединение с базой данных закрыто")
+
 
     def clear_table(self):
         with sl.connect(DB_PATH, check_same_thread=False) as conn:
