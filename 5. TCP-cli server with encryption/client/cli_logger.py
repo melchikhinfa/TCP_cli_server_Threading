@@ -1,6 +1,6 @@
 import logging
 
-CLIENT_LOG_FILE = '../logs/client.log'
+CLIENT_LOG_FILE = '../logs/cli.log'
 cli_log = logging.getLogger(__name__)
 cli_log.setLevel(logging.INFO)
 
