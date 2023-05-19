@@ -15,13 +15,9 @@ class Client:
         self.connect()
         self.route_menu()
         # Создаем поток на чтение сообщений с сервера
-        read_thr = threading.Thread(target=self.read_message, daemon=True)
-        read_thr.start()
+
         write_trh = threading.Thread(target=self.send_message, daemon=True)
         write_trh.start()
-
-
-
 
     def connect(self):
         """Создание подключения по указанному порту и адресу"""

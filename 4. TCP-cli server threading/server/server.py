@@ -145,18 +145,16 @@ class Server:
                 f"Получили сообщение {data['text']} от клиента {ip_addr} ({username})"
             )
             data = {"username": username, "text": data['text']}
-            server_logger.info(
-                f"Текущее кол-во подключений к серверу: {len(self.sessions_list)}"
-            )
-            for connection in self.sessions_list:
-                current_conn, current_ip = connection[0], connection[1]
-                try:
-                    self.send_message(current_conn, data, current_ip)
-                except BrokenPipeError:
-                    server_logger.info(f"Клиент {current_ip} отключился")
-                    self.auth_processing.update_info(current_ip, username, 'offline', '', '')
-                    self.sessions_list.remove(connection)
-                    continue
+
+            try:
+                self.send_message(conn, data, ip_addr)
+            except BrokenPipeError:
+                server_logger.info(f"Клиент {ip_addr} отключился")
+                self.auth_processing.update_info(ip_addr, username, 'offline', '', '')
+                for connection in self.sessions_list:
+                    current_conn, current_ip = connection[0], connection[1]
+                    self.sessions_list.remove(connection if current_conn == conn else None)
+                continue
             data = ""
             if not conn_data:
                 self.auth_processing.update_info(ip_addr, username, 'offline', '', '')
