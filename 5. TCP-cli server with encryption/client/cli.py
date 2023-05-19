@@ -21,8 +21,7 @@ class Client:
 
         self.route_menu()
         # Создаем поток на чтение сообщений с сервера
-        read_thr = threading.Thread(target=self.read_message, daemon=True)
-        read_thr.start()
+
         write_trh = threading.Thread(target=self.send_message, daemon=True)
         write_trh.start()
 
@@ -44,7 +43,6 @@ class Client:
         self.sock = sock
 
         cli_pub_keys = self.encryption.auth_keys
-        print(cli_pub_keys)
         self.sock.sendall(pickle.dumps(cli_pub_keys))
         cli_log.info(f"Отправлены публичные ключи клиента: {cli_pub_keys}")
 
@@ -90,6 +88,8 @@ class Client:
                     cli_log.info(f"Пользователь с таким именем уже существует")
                     self.reg_form()
                     continue
+            else:
+                print('Поля не должны быть пустыми! Введите данные снова --->')
 
     def auth_form(self):
         """Авторизация пользователя в системе"""
@@ -113,7 +113,7 @@ class Client:
                     cli_log.info(f"Пользователь {username} ввел неверный пароль.")
                     self.auth_form()
                 elif server_response['result'] == "not registered":
-                    print("Пользователь не зарегистрирован. Пожалуйста, зарегистрируйтесь.")
+                    print("Пользователь не зарегистрирован. Пожалуйста, зарегистрируйтесь --->")
                     cli_log.info(f"Пользователь {username} не зарегистрирован на сервере.")
                     self.reg_form()
 
@@ -126,6 +126,7 @@ class Client:
                     break
             else:
                 print("Поля ввода не должны быть пустыми!")
+                continue
 
     def read_message(self):
         """Чтение сообщений с сервера"""
@@ -157,7 +158,7 @@ class Client:
             self.sock.sendall(data)
             cli_log.info(f"Пользователь отправил сообщение: {message}")
             cli_log.info(f"Пользователь отправил сообщение в зашифрованном виде: {encr_data['text']}")
-            #self.read_message()
+            self.read_message()
             data = ''
 
     def route_menu(self):
