@@ -24,3 +24,5 @@ TCP server threading (4)/client/__pycache__/
 Parallelism (multiprocessing)/.idea/
 
 Symmetric ciphers/.idea/
+
+Asyncio_server/.idea/
