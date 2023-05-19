@@ -32,9 +32,8 @@ class Server:
         for session in self.sessions_list:
             self.check_token(session)
 
-    # TODO: Тут какая-то галимотья. Разобраться с потоками и ошибкой при получении сообщения
     def check_keys(self, conn):
-        time.sleep(5)
+        #time.sleep(5)
         data = conn.recv(1024)
         cli_pub_key1, cli_pub_key2, cli_pub_key = pickle.loads(data)
         server_logger.info("Получен публичный ключ клиента")
@@ -91,6 +90,9 @@ class Server:
         while self.receive_data:
             conn, addr = self.sock.accept()
             server_logger.info(f"Подключился клиент {addr[0]}")
+            server_logger.info(
+                f"Текущее кол-во подключений к серверу: {len(self.sessions_list)}"
+            )
             thr = threading.Thread(target=self.check_keys, args=(conn,), daemon=True)
             thr.start()
 
@@ -192,12 +194,9 @@ class Server:
             data = self.msg_crypter.encrypt_message(cr_data)
             username = data["username"]
             server_logger.info(
-                f"Получили сообщение {data['text']} от клиента {ip_addr} ({username})"
+                f"Получили сообщение {data} от клиента {ip_addr} ({username})"
             )
             data = {"username": username, "text": data['text']}
-            server_logger.info(
-                f"Текущее кол-во подключений к серверу: {len(self.sessions_list)}"
-            )
             for connection in self.sessions_list:
                 current_conn, current_ip = connection[0], connection[1]
                 try:
