@@ -7,7 +7,7 @@ from serv_logger import server_logger
 from auth import UserRegistration
 from port_checker import PortValidator
 from settings import *
-import time
+
 
 
 class Server:
