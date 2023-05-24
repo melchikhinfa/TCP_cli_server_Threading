@@ -1,33 +1,25 @@
-FROM ubuntu:latest
-LABEL authors="andreymelchikhin"
+# For more information, please refer to https://aka.ms/vscode-docker-python
+FROM python:3.10-slim
 
-ENV LANG="en_US.UTF-8"
-ENV PYTHONUNBUFFERED 1
+EXPOSE 5002
 
-RUN apt-get update && apt-get install -y locales
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    locale-gen en_US.UTF-8 && \
-    /usr/sbin/update-locale LANG=en_US.UTF-8
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
 
-ENV LC_ALL en_US.UTF-8
+# Install pip requirements
+COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
 
-ENV TZ 'Europe/Moscow'
-
-RUN echo $TZ > /etc/timezone && \
-  apt-get update && apt-get install -y tzdata && \
-  rm /etc/localtime && \
-  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
-  dpkg-reconfigure -f noninteractive tzdata && \
-  apt-get clean
-
-RUN \
-  apt-get update && \
-  apt-get install -y python3 python3-pip python3-dev
-
-ADD requirements.txt /app/
 WORKDIR /app
+COPY . /app
 
-RUN pip3 install -r requirements.txt
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
 
-CMD ["python3", "./service/main.py"]
+# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
+CMD ["gunicorn", "--bind", "0.0.0.0:5002", "server.service/main:app"]

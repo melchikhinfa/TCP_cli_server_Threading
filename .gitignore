@@ -56,3 +56,11 @@ Asyncio_server/auth/__pycache__/
 3. TCP-cli server with auth/server/__pycache__/
 
 3. TCP-cli server with auth/client/__pycache__/
+
+8. Microservices/server/service/__pycache__/
+
+8. Microservices/.vscode/
+
+8. Microservices/.dockerignore
+
+8. Microservices/docker-compose.debug.yml
