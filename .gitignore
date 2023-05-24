@@ -26,3 +26,33 @@ Parallelism (multiprocessing)/.idea/
 Symmetric ciphers/.idea/
 
 Asyncio_server/.idea/
+
+5. TCP-cli server with encryption/.idea/
+
+7. FTP-server/.idea/inspectionProfiles/
+
+7. FTP-server/.idea/
+
+7. FTP-server/server/proc/__pycache__/
+
+Asyncio_server/utils/__pycache__/
+
+Asyncio_server/server/__pycache__/
+
+.idea/inspectionProfiles/
+
+.idea/
+
+7. FTP-server/client/.env
+
+7. FTP-server/server/.env
+
+8. Microservices/service/__pycache__/
+
+Asyncio_server/auth/__pycache__/
+
+2. Simple file manager/__pycache__/
+
+3. TCP-cli server with auth/server/__pycache__/
+
+3. TCP-cli server with auth/client/__pycache__/

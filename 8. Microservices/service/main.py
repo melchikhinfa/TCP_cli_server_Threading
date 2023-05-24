@@ -1,11 +1,13 @@
 from flask import Flask, request
 from pydantic import ValidationError
+import os
 
 from auth import User, AuthUser
 from collection_proc import Storage
 
+path = path_to_file = os.path.dirname(__file__) + "/data/dump.pickle"
 app = Flask(__name__)
-data_storage = Storage()
+data_storage = Storage(path)
 
 
 @app.route("/users/auth", methods=["POST"])

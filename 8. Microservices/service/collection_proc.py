@@ -5,11 +5,12 @@ from typing import Union
 from auth import User, AuthUser
 from utils import hasher
 
+path_to_file = os.path.dirname(__file__) + "/data/dump.pickle"
 
 class Storage:
     """Класс для работы с коллекцией пользователей"""
 
-    def __init__(self, file_path: str = "./code/data/dump.pickle") -> None:
+    def __init__(self, file_path: str) -> None:
         self.file_path = file_path
         self.data = []
         self.read_collection()
