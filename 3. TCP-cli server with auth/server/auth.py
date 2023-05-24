@@ -1,13 +1,14 @@
 import sqlite3 as sl
 import hashlib
 import db_logger
+import os
 
-
+path_to_db = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/data/users.db"
 class UserRegistration:
     def __init__(self):
         """Инициализация первичного подключения к базе данных
                 и проверки наличия таблицы users"""
-        self.conn = sl.connect("./data/users.db", check_same_thread=False, timeout=10)
+        self.conn = sl.connect(path_to_db, check_same_thread=False, timeout=10)
         self.cursor = self.conn.cursor()
         self.cursor.execute(
             "CREATE TABLE IF NOT EXISTS users("
@@ -27,7 +28,7 @@ class UserRegistration:
 
     def userreg(self, ip, name, password):
         """Регистрация пользователя в базе данных"""
-        with sl.connect("./data/users.db", check_same_thread=False) as conn:
+        with sl.connect(path_to_db, check_same_thread=False) as conn:
             db_logger.db_log.info("Подключение к базе данных установлено.")
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM users WHERE name = ?", (name,))
@@ -43,7 +44,7 @@ class UserRegistration:
 
     def userauth(self, name, password):
         """Авторизация пользователя в базе данных"""
-        with sl.connect("./data/users.db", check_same_thread=False, timeout=10) as conn:
+        with sl.connect(path_to_db, check_same_thread=False, timeout=10) as conn:
             db_logger.db_log.info("Подключение к базе данных установлено.")
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM users WHERE name = ?", (name,))
@@ -64,7 +65,7 @@ class UserRegistration:
 
     def update_info(self, ip, name, status, token, token_time):
         """Внесение изменений информации пользователя в бд"""
-        with sl.connect("./data/users.db", check_same_thread=False, timeout=10) as conn:
+        with sl.connect(path_to_db, check_same_thread=False, timeout=10) as conn:
             db_logger.db_log.info("Подключение к базе данных установлено.")
             cursor = conn.cursor()
             cursor.execute("UPDATE users SET status = ?, token=?, token_time=? WHERE ip = ? AND name = ?", (status, token, token_time, ip, name))
