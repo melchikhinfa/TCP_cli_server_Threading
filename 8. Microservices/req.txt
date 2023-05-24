@@ -1,0 +1,9 @@
+Flask==latest
+itsdangerous==latest
+Jinja2==latest
+MarkupSafe==latest
+pydantic==latest
+PyYAML==latest
+typing-extensions==latest
+Werkzeug==latest
+pysha3==latest
