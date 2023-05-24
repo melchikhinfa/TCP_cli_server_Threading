@@ -36,7 +36,6 @@ class WebServer:
             self.conn_accept()
 
     def conn_accept(self):
-        #self.sock.listen(self.backlog)
         client_sock, address = self.sock.accept()
         threading.Thread(target=self.listen_to_client, args=(client_sock, address)).start()
 
