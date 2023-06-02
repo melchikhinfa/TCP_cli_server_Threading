@@ -1,4 +1,4 @@
-### TCP/FTP
+### Practice in TCP/UDP sockets, FTP-server, threading, asyncio, multiprocessing and some ciphers
 
 * [Файловый менеджер](https://github.com/melchikhinfa/TCP_cli_server_Threading/tree/main/2.%20Simple%20file%20manager)
 * [TCP-клиент и эхо-сервер](https://github.com/melchikhinfa/TCP_cli_server_Threading/tree/main/3.%20TCP-cli%20server%20with%20auth)
